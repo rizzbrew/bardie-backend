@@ -108,7 +108,7 @@ class Bard {
 
       if (chatData === null)
         return {
-          content: "[Bard Error]: Limited Request, Try Again Later",
+          content: "[Bard Error]: Null Request, Try Again Later",
           status: false,
         };
 
