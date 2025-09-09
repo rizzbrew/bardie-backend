@@ -1,0 +1,118 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Bardie API",
+    "description": "Function API Scrape Google Gemini",
+    "contact": {
+      "name": "RizzyFuzz",
+      "url": "https://www.rizzy.eu.org/",
+      "email": "support@rizzy.eu.org"
+    }
+  },
+  "definitions": {
+    "InitialRequest": {
+      "type": "object",
+      "properties": {
+        "ask": {
+          "type": "string",
+          "description": "The text question to ask Bard."
+        },
+        "image": {
+          "type": "string",
+          "description": "Optional image URL or base64 string."
+        },
+        "preview": {
+          "type": "boolean",
+          "description": "If true and response is an image URL, the server will return the raw image instead of JSON."
+        }
+      },
+      "example": {
+        "ask": "Using the model, create a 1/7 scale commercialized figurine of the characters in the picture, in a realistic style, in a real environment. The figurine is placed on a computer desk. The figurine has a round transparent acrylic base, with no text on the base. The content on the computer screen is the Zbrush modeling process of this figurine. Next to the computer screen is a BANDAI-style toy packaging box printed with the original artwork. The packaging features two-dimensional flat illustrations.",
+        "image": "https://raw.githubusercontent.com/rizzbrew/mystorg/refs/heads/main/C104.png",
+        "preview": true
+      }
+    },
+    "InitialResponse": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "The response content from Bard."
+        },
+        "status": {
+          "type": "integer",
+          "description": "HTTP status code.",
+          "example": 200
+        },
+        "creator": {
+          "type": "string",
+          "description": "Creator of the API response."
+        }
+      },
+      "example": {
+        "content": "RizzyFuzz Fursona",
+        "status": 200,
+        "creator": "RizzyFuzz"
+      }
+    }
+  },
+  "paths": {
+    "/backend/conversation": {
+      "post": {
+        "summary": "Ask Bard (with optional image, preview support)",
+        "description": "Send a question to Bard with or without an image. If image is provided, Bard will analyze it along with the text. If preview=true and the response is an image, server returns raw image instead of JSON.",
+        "parameters": [
+          {
+            "name": "Request Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InitialRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/InitialResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": { "type": "string" },
+                "status": { "type": "integer" },
+                "creator": { "type": "string" }
+              },
+              "example": {
+                "content": "Bad Request: No Query Ask Provided",
+                "status": 400,
+                "creator": "RizzyFuzz"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": { "type": "string" },
+                "status": { "type": "integer" },
+                "creator": { "type": "string" }
+              },
+              "example": {
+                "content": "Internal Server Error",
+                "status": 500,
+                "creator": "RizzyFuzz"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
