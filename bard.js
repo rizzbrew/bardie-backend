@@ -204,9 +204,7 @@ class Bard {
       const validImageTypes = [
         "image/png",
         "image/jpg",
-        "image/jpeg",
         "image/webp",
-        "image/gif",
       ];
       if (!validImageTypes.includes(contentType)) {
         return { content: "[Bard Error]: Invalid image type", status: false };
