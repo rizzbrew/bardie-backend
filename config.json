@@ -1,6 +1,6 @@
 {
   "bl": "boq_assistant-bard-web-server_20250901.13_p1",
   "cookie": "",
-  "schemes": "https",
+  "schemes": "req.protocol",
   "imageUploadLimit": 10
 }
