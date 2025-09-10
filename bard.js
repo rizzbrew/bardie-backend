@@ -204,6 +204,7 @@ class Bard {
       const validImageTypes = [
         "image/png",
         "image/jpg",
+        "image/jpeg",
         "image/webp",
       ];
       if (!validImageTypes.includes(contentType)) {
